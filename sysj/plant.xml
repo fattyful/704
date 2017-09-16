@@ -1,0 +1,27 @@
+<System xmlns="http://systemjtechnology.com">
+  <SubSystem Name="SS2" Local="true">
+    <ClockDomain Name="ECSPlantCD" Class="ECSPlant">
+
+      <iSignal Name="BrightL"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10001"/>
+      <iSignal Name="BrightH"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10001"/>
+      <iSignal Name="RightLight"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10001"/>
+      <iSignal Name="AlarmAlert"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10001"/>
+	  <iSignal Name="Fan" 	 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10001"/>
+      <iSignal Name="Heater"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10001"/>
+      <iSignal Name="TR"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10001"/>
+      
+      <oSignal Name="Brighted" To="ECSControllerCD.Brighted"	 Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"  Port="10020"/>
+      <oSignal Name="RightLighted" To="ECSControllerCD.RightLighted" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="10020"/>
+      <oSignal Name="AlarmAlerted" To="ECSControllerCD.AlarmAlerted" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"     Port="10020"/>
+      <oSignal Name="Faned" To="ECSControllerCD.Faned" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="10020"/>
+      <oSignal Name="Heatered" To="ECSControllerCD.Heatered" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="10020"/>
+      <oSignal Name="TRed" To="ECSControllerCD.TRed" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"     Port="10020"/>
+      
+      <oSignal Name="BlindE" 		To="UI.BlindE" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  <oSignal Name="LightE" 		To="UI.LightE" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  <oSignal Name="HeaterE" 		To="UI.HeaterE" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="20000"/>
+      <oSignal Name="FanE" 			To="UI.FanE" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  
+    </ClockDomain>
+  </SubSystem>
+</System>

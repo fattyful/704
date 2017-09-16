@@ -1,0 +1,27 @@
+     CONTROLLER
+	 <iSignal Name="zoneNLightOn" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="10000"/>
+      <iSignal Name="zoneNAcOn" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10000"/>
+      <iSignal Name="zoneNHeaterOn" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"       Port="10000"/>
+      <iSignal Name="zoneNFanOn" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"     Port="10000"/>
+      <iSignal Name="AlarmAlerted" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"       Port="10000"/>
+      <iSignal Name="zoneNOccupied" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"       Port="10000"/>
+      
+      <oSignal Name="zoneNTurnLightOn"  To="ECSPlantCD.zoneNLightsOn"  Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="zoneNTurnAcOn"         To="ECSPlantCD.zoneNAcOn"         Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="zoneNTurnHeaterOn"     To="ECSPlantCD.zoneNHeaterOn"     Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="zoneNTurnFanOn"       To="ECSPlantCD.zoneNFanOn"       Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="zoneNAlarmAlerted"       To="ECSPlantCD.AlarmAlerted"       Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+	  
+	  PLANT
+	  
+	  <oSignal Name="zoneNLightOn" To="ECSControllerCD.zoneNLightOn" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="10000"/>
+      <oSignal Name="zoneNAcOn"  To="ECSControllerCD.zoneNAcOn"  Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="10000"/>
+      <oSignal Name="zoneNHeaterOn"       To="ECSControllerCD.zoneNHeaterOn"       Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="10000"/>
+      <oSignal Name="zoneNFanOn"     To="ECSControllerCD.zoneNFanOn"     Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="10000"/>
+      <oSignal Name="AlarmAlerted"       To="ECSControllerCD.AlarmAlerted"       Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="10000"/>
+
+      <iSignal Name="zoneNTurnLightOn"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="10001" />
+      <iSignal Name="zoneNTurnAcOn"         Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="10001" />
+      <iSignal Name="zoneNTurnHeaterOn"     Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="10001" />
+      <iSignal Name="zoneNTurnFanOn"       Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="10001" />
+      <iSignal Name="zoneTAlarmAlert"       Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="10001" />

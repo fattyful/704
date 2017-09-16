@@ -1,0 +1,49 @@
+<System xmlns="http://systemjtechnology.com">
+  <SubSystem Name="SS1" Local="true">
+    <ClockDomain Name="ECSControllerCD" Class="ECSController">
+      <iSignal Name="Brighted" 		Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10020"/>
+      <iSignal Name="RightLighted" 		Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10020"/>
+      <iSignal Name="AlarmAlerted" 		Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10020"/>
+      
+      <!-- Zones -->
+      <iSignal Name="One"				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"	 Port="10010"/>
+      <iSignal Name="Two"				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"	 Port="10010"/>
+      <iSignal Name="Three"				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"	 Port="10010"/>
+      <iSignal Name="Four"				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"	 Port="10010"/>
+      <iSignal Name="Five"				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"	 Port="10010"/>
+      <iSignal Name="Six"				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"	 Port="10010"/>
+      <iSignal Name="Seven"				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"	 Port="10010"/>
+      
+      <iSignal Name="Faned" 	 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="Heatered"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="TRed"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      
+      <!-- From viz -->
+      <iSignal Name="Occupied" 				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="NOccupied" 			Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="UnderLightLimit"		Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="OverLightLimit"		Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="RightLightLimit" 		Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="AlertAlarm" 			Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="UnderTemp"					Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="OverTemp"			 		Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      <iSignal Name="RightTemp" 				Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10010"/>
+      
+            
+      <oSignal Name="BrightL"			To="ECSPlantCD.BrightL"  	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="BrightH"			To="ECSPlantCD.BrightH"  	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="RightLight"	To="ECSPlantCD.RightLight" 		Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="AlarmAlert"	To="ECSPlantCD.AlarmAlert"      Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+       
+      <oSignal Name="Fan"	To="ECSPlantCD.Fan"  	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="Heater"	To="ECSPlantCD.Heater"     Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      <oSignal Name="TR"		To="ECSPlantCD.TR" 		Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="10001" />
+      
+      <!--TO GUI  -->
+      <oSignal Name="OccupiedE" 	To="UI.OccupiedE"	 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"  	  Port="20000"/>
+      <oSignal Name="NOccupiedE" 	To="UI.NOccupiedE" 		Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+      <oSignal Name="AlarmAlertE" 	To="UI.AlarmAlertE" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+      
+    </ClockDomain>
+  </SubSystem>
+</System>

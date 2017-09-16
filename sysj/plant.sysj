@@ -1,0 +1,120 @@
+ECSPlant(	input signal BrightL, BrightH, Light;
+			input signal RightLight, AlarmAlert;
+			input signal Fan, Heater, TR;
+			output signal Brighted, RightLighted, AlarmAlerted;
+			output signal Faned, Heatered, TRed, BlindE, LightE, HeaterE, FanE;
+		)
+->{
+
+int signal blind, light;
+emit blind(0);
+emit light(0);
+
+	{ //light controller
+	
+		int nB = 0; 
+		int nL = 0;
+		
+		while(true){
+			loop{
+				await(BrightH || BrightL || RightLight);
+				
+				present(BrightL){
+					abort(!BrightL){
+						if(nB < 5){
+							nB++;
+							emit blind(nB);
+							System.out.println("Blinds are at state: " + nB);
+						}
+						
+						else{
+							if( nL < 5){
+								nL++;
+								emit light(nL);
+								System.out.println("Lights are at state: " + nL);
+							}
+						}
+						sustain Brighted;
+					}
+				}
+				
+				present(BrightH){
+					abort(!BrightH){
+						if( nL > 0){
+								nL--;
+								emit light(nL);
+								System.out.println("Lights are at state: " + nL);
+						}
+						
+						else{
+							if(nB > 0){
+								nB--;
+								emit blind(nB);
+								System.out.println("Blinds are at state: " + nB);
+							}
+						}
+						sustain Brighted;
+					}
+				}
+					
+				present(RightLight){
+					abort(!RightLight){
+						System.out.println("Maintaining Temperature at Blinds:" + nB + " Lights: " + nL);
+						sustain RightLighted;
+					}
+				}	
+			}
+		}
+	}
+||	
+
+		{ //light controller
+		while(true){
+			loop{
+				await(Fan || Heater || TR);
+				
+				present(Fan){
+					abort(!Fan){
+						System.out.println("Fan is ON");
+						sustain Faned;
+					}
+				}
+				
+				present(Heater){
+					abort(!Heater){
+						System.out.println("Heater in ON");
+						sustain Heatered;
+					}
+				}
+					
+				present(TR){
+					abort(!TR){
+						System.out.println("Room is at correct temperature");
+						sustain TRed;
+					}
+				}	
+			}
+		}
+	}
+	
+||	
+	{//FireAlarm
+		while(true){
+			await (AlarmAlert);
+			abort(!AlarmAlert){
+				System.out.println("EVACUATE BUILDING");
+				sustain AlarmAlerted;
+			}
+		}
+	}
+||
+	{// TO viz
+		{while(true){if(#blind>0){emit BlindE;} pause;}}
+		||
+		{while(true){if(#light>0){emit LightE;} pause;}}
+		||
+		{while(true){present(Heatered){emit HeaterE;} pause;}}
+		||
+		{while(true){present(Faned){emit FanE;} pause;}}
+	}
+}
