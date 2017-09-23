@@ -1,0 +1,49 @@
+<System xmlns="http://systemjtechnology.com">
+  <SubSystem Name="SS4" Local="true">
+    <ClockDomain Name="ECSPlantCD" Class="ECSPlant">
+
+      <iSignal Name="BrightL1"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="BrightH1"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="RightLight1"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="AlarmAlert"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+	  <iSignal Name="Fan1" 	 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="Heater1"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="TR1"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="turnoff1"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      
+      <iSignal Name="BrightL7"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="BrightH7"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="RightLight7"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+	  <iSignal Name="Fan7" 	 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="Heater7"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="TR7"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      <iSignal Name="turnoff7"   Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1"  Port="10100"/>
+      
+      <oSignal Name="Brighted1" To="ECSControllerCD.Brighted1"	 Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"  Port="11000"/>
+      <oSignal Name="RightLighted1" To="ECSControllerCD.RightLighted1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="11000"/>
+      <oSignal Name="AlarmAlerted" To="ECSControllerCD.AlarmAlerted" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"     Port="11000"/>
+      <oSignal Name="Faned1" To="ECSControllerCD.Faned1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="11000"/>
+      <oSignal Name="Heatered1" To="ECSControllerCD.Heatered1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="11000"/>
+      <oSignal Name="TRed1" To="ECSControllerCD.TRed1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"     Port="11000"/>
+      <oSignal Name="turnedoff1" To="ECSControllerCD.turnedoff1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"     Port="11000"/>
+      
+      <oSignal Name="Brighted7" To="ECSControllerCD.Brighted1"	 Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"  Port="11000"/>
+      <oSignal Name="RightLighted7" To="ECSControllerCD.RightLighted1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="11000"/>
+      <oSignal Name="Faned7" To="ECSControllerCD.Faned1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="11000"/>
+      <oSignal Name="Heatered7" To="ECSControllerCD.Heatered1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="11000"/>
+      <oSignal Name="TRed7" To="ECSControllerCD.TRed1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"     Port="11000"/>
+      <oSignal Name="turnedoff7" To="ECSControllerCD.turnedoff1" 	Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"     Port="11000"/>
+      
+      <oSignal Name="Blind1E" 		To="UI.Blind1E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  <oSignal Name="Light1E" 		To="UI.Light1E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  <oSignal Name="Heater1E" 		To="UI.Heater1E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="20000"/>
+      <oSignal Name="Fan1E" 			To="UI.Fan1E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+      
+      <oSignal Name="Blind7E" 		To="UI.Blind7E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  <oSignal Name="Light7E" 		To="UI.Light7E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  <oSignal Name="Heater7E" 		To="UI.Heater7E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"   Port="20000"/>
+      <oSignal Name="Fan7E" 			To="UI.Fan7E" 			Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1"       Port="20000"/>
+	  
+    </ClockDomain>
+  </SubSystem>
+</System>

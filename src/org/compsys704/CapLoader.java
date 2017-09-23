@@ -111,7 +111,9 @@ public class CapLoader extends JFrame {
 		cl.setVisible(true);
 		
 		SignalServer<LoaderVizWorker> server = new SignalServer<LoaderVizWorker>(Ports.PORT_LOADER_VIZ, LoaderVizWorker.class);
+		//SignalServer<LoaderVizWorker2> server2 = new SignalServer<LoaderVizWorker2>(Ports.PORT_LOADER_VIZ, LoaderVizWorker2.class);
 		new Thread(server).start();
+		//new Thread(server2).start();
 		while(true){
 			try {
 				cl.repaint();

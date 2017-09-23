@@ -1,0 +1,262 @@
+ECSPlant(	input signal BrightL1, BrightH1, Light1, RightLight1, turnoff1;
+			input signal BrightL7, BrightH7, Light7, RightLight7, turnoff7;
+			input signal  AlarmAlert;
+			input signal Fan1, Heater1, TR1;
+			input signal Fan7, Heater7, TR7;
+			output signal Brighted1, RightLighted1, turnedoff1, AlarmAlerted;
+			output signal Brighted7, RightLighted7, turnedoff7;
+			output signal Faned1, Heatered1, TRed1, Blind1E, Light1E, Heater1E, Fan1E;
+			output signal Faned7, Heatered7, TRed7, Blind7E, Light7E, Heater7E, Fan7E;
+		)
+->{
+
+int signal blind1, light1, blind7, light7;
+emit blind1(0);
+emit light1(0);
+emit blind7(0);
+emit light7(0);
+
+//<------ ZONE ONE ---------------------------------------------------------------------------------------------------------------------------------------------->
+	{ //light controller
+	
+		int nB1 = 0; 
+		int nL1 = 0;
+		
+		while(true){
+			loop{
+				await(BrightH1 || BrightL1 || RightLight1);
+				
+				nB1 = #blind1;
+				nL1 = #light1;
+				
+				present(BrightL1){
+					abort(!BrightL1){
+						if(nB1 < 5){
+							nB1++;
+							emit blind1(nB1);
+							System.out.println("Blinds are at state: " + nB1);
+						}
+						
+						else{
+							if( nL1 < 5){
+								nL1++;
+								emit light1(nL1);
+								System.out.println("Lights are at state: " + nL1);
+							}
+						}
+						sustain Brighted1;
+					}
+				}
+				
+				present(BrightH1){
+					abort(!BrightH1){
+						if( nL1 > 0){
+								nL1--;
+								emit light1(nL1);
+								System.out.println("Lights are at state: " + nL1);
+						}
+						
+						else{
+							if(nB1 > 0){
+								nB1--;
+								emit blind1(nB1);
+								System.out.println("Blinds are at state: " + nB1);
+							}
+						}
+						sustain Brighted1;
+					}
+				}
+					
+				present(RightLight1){
+					abort(!RightLight1){
+						System.out.println("Maintaining Temperature at Blinds:" + nB1 + " Lights: " + nL1);
+						sustain RightLighted1;
+					}
+				}	
+			}
+		}
+	}
+||	
+
+		{ //light controller
+		while(true){
+			loop{
+				await(Fan1 || Heater1 || TR1);
+				
+				present(Fan1){
+					abort(!Fan1){
+						System.out.println("Fan is ON");
+						sustain Faned1;
+					}
+				}
+				
+				present(Heater1){
+					abort(!Heater1){
+						System.out.println("Heater in ON");
+						sustain Heatered1;
+					}
+				}
+					
+				present(TR1){
+					abort(!TR1){
+						System.out.println("Room is at correct temperature");
+						sustain TRed1;
+					}
+				}	
+			}
+		}
+	}
+//<---------------- ZONE ONE ------------------------------------------------------------------------------------------------------------------------------------->	
+||	
+//<------ ZONE Seven ---------------------------------------------------------------------------------------------------------------------------------------------->
+	{ //light controller
+	
+		int nB7 = 0; 
+		int nL7 = 0;
+		
+		while(true){
+			loop{
+				await(BrightH7 || BrightL7 || RightLight7);
+				
+				nB7 = #blind7;
+				nL7 = #light7;
+				
+				present(BrightL7){
+					abort(!BrightL7){
+						if(nB7 < 5){
+							nB7++;
+							emit blind7(nB7);
+							System.out.println("ZONE 7: Blinds are at state: " + nB7);
+						}
+						
+						else{
+							if( nL7 < 5){
+								nL7++;
+								emit light7(nL7);
+								System.out.println("ZONE 7: Lights  are at state: " + nL7);
+							}
+						}
+						sustain Brighted7;
+					}
+				}
+				
+				present(BrightH7){
+					abort(!BrightH7){
+						if( nL7 > 0){
+								nL7--;
+								emit light7(nL7);
+								System.out.println("ZONE 7: Lights are at state: " + nL7);
+						}
+						
+						else{
+							if(nB7 > 0){
+								nB7--;
+								emit blind7(nB7);
+								System.out.println("ZONE 7: Blinds are at state: " + nB7);
+							}
+						}
+						sustain Brighted7;
+					}
+				}
+					
+				present(RightLight7){
+					abort(!RightLight7){
+						System.out.println("ZONE 7: Maintaining Temperature at Blinds:" + nB7 + " Lights: " + nL7);
+						sustain RightLighted7;
+					}
+				}	
+			}
+		}
+	}
+||	
+
+		{ //light controller
+		while(true){
+			loop{
+				await(Fan7 || Heater7 || TR7);
+				
+				present(Fan7){
+					abort(!Fan7){
+						System.out.println("Fan is ON");
+						sustain Faned7;
+					}
+				}
+				
+				present(Heater7){
+					abort(!Heater7){
+						System.out.println("Heater in ON");
+						sustain Heatered7;
+					}
+				}
+					
+				present(TR7){
+					abort(!TR7){
+						System.out.println("Room is at correct temperature");
+						sustain TRed7;
+					}
+				}	
+			}
+		}
+	}
+//<---------------- ZONE ONE ------------------------------------------------------------------------------------------------------------------------------------->
+||
+	{//FireAlarm
+		while(true){
+			await (AlarmAlert);
+			abort(!AlarmAlert){
+				System.out.println("EVACUATE BUILDING");
+				emit blind1(0);
+				emit light1(0);
+				emit blind7(0);
+				emit light7(0);
+				sustain AlarmAlerted;
+			}
+		}
+	}
+||
+	{ //Zone 1
+		while(true){
+			await(turnoff1);
+			abort(!turnoff1){
+				System.out.println("Noone in the ZONE 1, turning off all actuators");
+				emit blind1(0);
+				emit light1(0);
+				sustain turnedoff1;
+			}
+		}
+	}
+		
+		||
+		
+		{//ZONE 7
+			while(true){
+				await (turnoff7);
+				abort(!turnoff7){
+					System.out.print("Noone in ZONE 7, turning off all actuators");
+					emit blind7(0);
+					emit light7(0);
+					sustain turnedoff7;
+				}
+			}
+		}
+	
+||
+	{// TO viz
+		{while(true){if(#blind1>0){emit Blind1E;} pause;}}
+		||
+		{while(true){if(#light1>0){emit Light1E;} pause;}}
+		||
+		{while(true){present(Heatered1){emit Heater1E;} pause;}}
+		||
+		{while(true){present(Faned1){emit Fan1E;} pause;}}
+		||
+		{while(true){if(#blind7>0){emit Blind7E;} pause;}}
+		||
+		{while(true){if(#light7>0){emit Light7E;} pause;}}
+		||
+		{while(true){present(Heatered7){emit Heater7E;} pause;}}
+		||
+		{while(true){present(Faned7){emit Fan7E;} pause;}}
+	}
+
+}

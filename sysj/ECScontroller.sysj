@@ -1,0 +1,263 @@
+ECSController(	input signal Occupied, NOccupied, UnderLightLimit, OverLightLimit,RightLightLimit, UnderTemp, OverTemp, RightTemp;
+				input signal Brighted1, RightLighted1, Faned1, Heatered1, TRed1, turnedoff1; 
+				input signal Brighted7, RightLighted7, Faned7, Heatered7, TRed7, turnedoff7; 
+				input signal AlarmAlerted, AlertAlarm;
+				input signal One, Seven;
+				output signal BrightH1, BrightL1, RightLight1, turnoff1;
+				output signal BrightH7, BrightL7, RightLight7, turnoff7;
+				output signal Fan1, Heater1, TR1;
+				output signal Fan7, Heater7, TR7;
+				output signal AlarmAlert;
+				output signal Occupied1E, NOccupied1E, Occupied7E, NOccupied7E, AlarmAlertE;
+			)
+			
+		
+->{
+	class GUI implements java.lang.Runnable {
+		public void run() {
+			org.compsys704.CapLoader.main(null);
+		}
+	}
+	new Thread(new GUI()).start();
+	
+	signal zone1occupied, zone1Noccupied, one;
+	signal zone7occupied, zone7Noccupied, seven;
+	
+// <!-------ZONE ONE ---------------------------------------------------------------------------------------------------------------------------------------->	
+	{ //light controller
+		while(true){
+			abort(NOccupied){
+				await(Occupied);
+				present(one){
+					abort(!one){
+						emit zone1occupied;
+						loop{
+						
+							await(UnderLightLimit || OverLightLimit || RightLightLimit);
+								
+								//zone1s lighting is under limit
+								present (UnderLightLimit){
+									abort(Brighted1){
+										emit BrightL1;
+									}
+								}
+		
+								//zone1s lighting is over limit
+								present (OverLightLimit){
+									abort(Brighted1){
+										emit BrightH1;
+									}
+								}
+							
+								//zone1s light limit is met
+								present (RightLightLimit){
+									abort(RightLighted1){
+										emit RightLight1;
+									}
+								}
+						}						
+					}
+				}
+			pause;
+			}
+			
+		System.out.println("No one is in the room");
+		present(NOccupied){
+			abort(turnedoff1){
+				 emit turnoff1;
+			}	
+		}
+		emit zone1Noccupied;
+		System.out.println("All actuators have been turned off in ZONE1");
+		
+		}
+	}
+	
+	||
+	
+	{ //Temperature controller
+		while(true){
+			abort(NOccupied){
+				await(Occupied);
+				present(one){
+					abort(!one){
+						loop{
+							await(UnderTemp || OverTemp || RightTemp);
+								
+								//zone1s lighting is under limit
+								present (UnderTemp){
+									abort(Heatered1){
+										emit Heater1;
+									}
+								}
+		
+								
+									
+								//zone1s lighting is over limit
+								present (OverTemp){
+									abort(Faned1){
+										emit Fan1;
+									}
+								}
+								
+									
+								//zone1s light limit is met
+								present (RightTemp){
+									abort(TRed1){
+										emit TR1;
+									}
+								}
+						}
+					}
+				}
+			pause; 	
+			}
+		}
+	}
+//<------ ZONE ONE ------------------------------------------------------------------------------------------------------------------------------------------------->
+||	
+// <------ ZONE SEVEN --------------------------------------------------------------------------------------------------------------------------------------------->
+ 	{ //light controller
+		while(true){
+			abort(NOccupied){
+				await(Occupied);
+				present(seven){
+					abort(!seven){
+						emit zone7occupied;
+						loop{
+						
+							await(UnderLightLimit || OverLightLimit || RightLightLimit);
+								
+								//zone7s lighting is under limit
+								present (UnderLightLimit){
+									abort(Brighted7){
+										emit BrightL7;
+									}
+								}
+		
+								//zone1s lighting is over limit
+								present (OverLightLimit){
+									abort(Brighted7){
+										emit BrightH7;
+									}
+								}
+							
+								//zone1s light limit is met
+								present (RightLightLimit){
+									abort(RightLighted7){
+										emit RightLight7;
+									}
+								}
+						}
+					}
+				}
+				
+				pause;						
+			}
+				//Start Timer
+				System.out.println("No one is in the room");
+				present(NOccupied){
+				 abort(turnedoff7){
+				 	emit turnoff7;
+					}
+				}
+				emit zone7Noccupied;
+				System.out.println("All actuators have been turned off in ZONE7");
+			
+		}
+	}
+	
+	||
+	
+	{ //Temperature controller
+		while(true){
+			abort(NOccupied){
+				await(Occupied);
+				present(seven){
+					abort(!seven){
+					loop{
+						await(UnderTemp || OverTemp || RightTemp);
+						
+						//zone1s lighting is under limit
+						present (UnderTemp){
+							abort(Heatered7){
+								emit Heater7;
+							}
+						}
+
+						
+							
+						//zone1s lighting is over limit
+						present (OverTemp){
+							abort(Faned7){
+								emit Fan7;
+							}
+						}
+						
+							
+						//zone1s light limit is met
+						present (RightTemp){
+							abort(TRed7){
+								emit TR7;
+							}
+						}
+					}
+				}
+				}
+				pause;	
+			}
+		}
+	}
+	
+//<------ ZONE SEVEN ---------------------------------------------------------------------------------------------------------------------------------------------->
+	||
+	
+	{// ZONE OCCUPUCIED
+		while (true){
+			present(One){
+				abort(!One){
+					emit one;
+				}
+			}
+			pause;
+		}
+	}
+		
+||
+		
+	{ 
+		while(true){
+			present(Seven){
+				abort(!Seven){
+					emit seven;
+				}
+			}
+			pause;
+		}
+	}
+	
+	||
+	
+	{//FireAlarm
+		while(true){
+			await(AlertAlarm);
+			abort(AlarmAlerted){
+				emit AlarmAlert;
+			}
+		}	
+	}
+	
+	||
+	
+	{// TO viz
+		{while(true){present(zone1occupied){emit Occupied1E;} pause;}}
+		||
+		{while(true){present(zone1Noccupied){emit NOccupied1E;} pause;}}
+		||
+		{while(true){present(AlarmAlert){emit AlarmAlertE;} pause;}}
+		||
+		{while(true){present(zone7occupied){emit Occupied7E;} pause;}}
+		||
+		{while(true){present(zone7Noccupied){emit NOccupied7E;} pause;}}
+	}
+}

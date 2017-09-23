@@ -96,30 +96,62 @@ public class Canvas extends JPanel {
 			//factory
 			g.drawRect(100, 80, 750, 500);
 			
-			if(States.OCCUPIED) 
+			if(States.OCCUPIED1) 
 			{
 				g.drawImage(Human, 100, 340, 60, 60, null);
 			}
 			
+			if(States.OCCUPIED7) 
+			{
+				g.drawImage(Human, 100, 100, 60, 60, null);
+			}
+			
 
-			if(States.BLIND) 
+			if(States.BLIND1) 
 			{
 				g.drawImage(Blind,160, 340, 60, 60, null);
 			}
 			
-			if(States.LIGHT) 
+			if(States.BLIND7) 
+			{
+				g.drawImage(Blind,160, 100, 60, 60, null);
+			}
+			
+			if(States.LIGHT1) 
 			{
 				g.drawImage(Light,220, 340, 60, 60, null);
 			}
 			
-			if(States.HEATER) 
+			if(States.LIGHT7) 
+			{
+				g.drawImage(Light,220, 100, 60, 60, null);
+			}
+			
+			if(States.HEATER1) 
 			{
 				g.drawImage(Heater,280, 340, 60, 60, null);
 			}
 			
-			if(States.FAN) 
+			if(States.HEATER7) 
+			{
+				g.drawImage(Heater,280, 100, 60, 60, null);
+			}
+			
+			if(States.FAN1) 
 			{
 				g.drawImage(Fan,340, 340, 60, 60, null);
+			}
+			
+			if(States.FAN7) 
+			{
+				g.drawImage(Fan,340, 100, 60, 60, null);
+			}
+			
+			if(States.ALARM1)
+			{
+				g.setColor(new Color(R,0,0));
+				g.fillRect(100, 330, 300, 250);
+				g.fillRect(100, 80, 300, 250);
 			}
 				
 			//Zone1 - Zone7

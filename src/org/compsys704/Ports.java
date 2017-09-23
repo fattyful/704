@@ -21,7 +21,7 @@ public class Ports {
 	public static final String SIX_SIGNAL = "ECSControllerCD.Six";
 	public static final String SEVEN_SIGNAL = "ECSControllerCD.Seven";
 	
-	public static final int PORT_LOADER_PLANT = 10001;
-	public static final int PORT_LOADER_CONTROLLER = 10010;
+	public static final int PORT_LOADER_PLANT = 10100;
+	public static final int PORT_LOADER_CONTROLLER = 11000;
 	public static final int PORT_LOADER_VIZ = 20000;
 }
